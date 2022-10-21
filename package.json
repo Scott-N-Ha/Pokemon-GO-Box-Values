@@ -2,6 +2,7 @@
   "name": "poke-box-values",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://scott-n-ha.github.io/Pokemon-GO-Box-Values/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,7 +12,9 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
+    "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
