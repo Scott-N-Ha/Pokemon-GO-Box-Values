@@ -6,13 +6,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-import ItemLib from './ItemLib';
+import ItemLib from '../lib/ItemLib';
 
 const AddNewItem = props => {
   const { options, setItems } = props;
 
   const handleChange = e => {
-    setItems(prevItems => [...prevItems, e.target.value]);
+    if (e.target.value !== '') {
+      setItems(prevItems => [...prevItems, e.target.value]);
+    }
   };
 
   const renderOptions = [
@@ -39,7 +41,7 @@ const AddNewItem = props => {
       >
         {renderOptions}
       </Select>
-      <FormHelperText>With label + helper text</FormHelperText>
+      <FormHelperText>Add an Item to the Box</FormHelperText>
     </FormControl>
   );
 };

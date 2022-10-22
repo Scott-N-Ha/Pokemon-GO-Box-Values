@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 
 import AddNewItem from './AddNewItem';
-import { getRandomBox } from './BoxesLib';
 import Item from './Item';
-import ItemLib from './ItemLib';
+import ItemLib from '../lib/ItemLib';
+import PokeCoin from '../images/PokeCoin.png';
+import { getRandomBox } from '../lib/BoxesLib';
 
-import './Calculator.scss';
+import '../styles/Calculator.scss';
 
 const Calculator = props => {
   const { boxNum = 0 } = props;
-  const [items, setItems] = React.useState([]);
-  const [counts, setCounts] = React.useState({});
-  const [price, setPrice] = React.useState(0);
-  const [title, setTitle] = React.useState('');
+
+  const [box, setBox] = useState(getRandomBox());
+  const [items, setItems] = useState([]);
+  const [counts, setCounts] = useState({});
+  const [price, setPrice] = useState(0);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+
+  }, []);
 
   const renderItems = items.map(item => (
     <Item key={item} item={item} setCounts={setCounts} />
@@ -27,7 +34,7 @@ const Calculator = props => {
 
   return (
     <div className='Calculator'>
-      {getRandomBox().imageComponent}
+      <img className='Calculator__Box' src={box.image} alt={box.name} />
       <input
         type='text'
         id='box-title'
@@ -37,10 +44,10 @@ const Calculator = props => {
         onChange={e => setTitle(e.target.value)}
       />
       <div className='Calculator__Total'>
-        Total: {total}
+        Total: {total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' />
       </div>
       <div className='Calculator__Cost'>
-        Box Price: 
+        Box Price:
         <input
           type="number"
           id="price-id"
@@ -49,6 +56,7 @@ const Calculator = props => {
           min={0}
           onChange={e => setPrice(e.target.value)}
         />
+        <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' />
       </div>
       {!!total && !!price && (
         <div className='Calculator__CostEfficiency'>

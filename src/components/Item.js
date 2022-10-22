@@ -1,15 +1,14 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
 
-import ItemLib from './ItemLib';
+import ItemLib from '../lib/ItemLib';
+import PokeCoin from '../images/PokeCoin.png';
 
-import './Item.scss';
+import '../styles/Item.scss';
 
 const Item = props => {
   const { item, setCounts } = props;
 
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
 
   const handleChange = e => {
     setCount(e.target.value);
@@ -20,17 +19,22 @@ const Item = props => {
 
   return (
     <div className='Item'>
-      <Avatar src={ItemLib[item].image} alt={ItemLib[item].name} />
-      {ItemLib[item].name}
-      <input
-        type="number"
-        id={`${item}-count-id`}
-        name={`${item}-count`}
-        max={9999}
-        min={0}
-        onChange={handleChange}
-      />
-      <div className='Item__total'>Total: {total}</div>
+      <img className='Item__Avatar' src={ItemLib[item].image} alt={ItemLib[item].name} />
+      <span className='Item__Name'>
+        {ItemLib[item].name}
+      </span>
+      <div className='Item__Count'>
+        Count:
+        <input
+          type="number"
+          id={`${item}-count-id`}
+          name={`${item}-count`}
+          max={9999}
+          min={0}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='Item__Total'>Total: {total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' /></div>
     </div>
   );
 };

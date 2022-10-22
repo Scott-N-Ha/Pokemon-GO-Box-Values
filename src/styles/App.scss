@@ -1,0 +1,62 @@
+@import './src/styles/_variables.scss';
+
+.PokemonBoxCalculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .PokemonBoxCalculator__Header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 10px;
+
+    background-color: lightseagreen;
+
+    font: 1.5rem 'Roboto', sans-serif;
+    font-weight: bold;
+  }
+
+  .PokemonBoxCalculator__Footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+
+    background-color: lightseagreen;
+
+    font: .75rem 'Roboto', sans-serif;
+    font-weight: bold;
+
+    .PokemonBoxCalculator__Footer__Link {
+      margin-left: 3px;
+    }
+
+    .PokemonBoxCalculator__Footer__Link:hover {
+      text-decoration: none;
+    }
+
+    .PokemonBoxCalculator__Footer__Icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.App {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+  @media #{$mobile} {
+    flex-direction: column;
+  }
+}
