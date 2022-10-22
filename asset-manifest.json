@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Pokemon-GO-Box-Values/static/css/main.10800568.css",
-    "main.js": "/Pokemon-GO-Box-Values/static/js/main.fd6d8167.js",
+    "main.css": "/Pokemon-GO-Box-Values/static/css/main.b75336ca.css",
+    "main.js": "/Pokemon-GO-Box-Values/static/js/main.c18dcef6.js",
     "static/js/787.c41ee099.chunk.js": "/Pokemon-GO-Box-Values/static/js/787.c41ee099.chunk.js",
     "static/media/holiday2_l.png": "/Pokemon-GO-Box-Values/static/media/holiday2_l.9ea2da28cb6f632d9d04.png",
     "static/media/holiday1_l.png": "/Pokemon-GO-Box-Values/static/media/holiday1_l.bfb0bb0b546d9229311f.png",
@@ -49,12 +49,12 @@
     "static/media/PokeCoin.png": "/Pokemon-GO-Box-Values/static/media/PokeCoin.b503f1424ee589298f53.png",
     "static/media/StarPiece.png": "/Pokemon-GO-Box-Values/static/media/StarPiece.fbfd3f59026fef7acfad.png",
     "index.html": "/Pokemon-GO-Box-Values/index.html",
-    "main.10800568.css.map": "/Pokemon-GO-Box-Values/static/css/main.10800568.css.map",
-    "main.fd6d8167.js.map": "/Pokemon-GO-Box-Values/static/js/main.fd6d8167.js.map",
+    "main.b75336ca.css.map": "/Pokemon-GO-Box-Values/static/css/main.b75336ca.css.map",
+    "main.c18dcef6.js.map": "/Pokemon-GO-Box-Values/static/js/main.c18dcef6.js.map",
     "787.c41ee099.chunk.js.map": "/Pokemon-GO-Box-Values/static/js/787.c41ee099.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.10800568.css",
-    "static/js/main.fd6d8167.js"
+    "static/css/main.b75336ca.css",
+    "static/js/main.c18dcef6.js"
   ]
 }
