@@ -1,10 +1,11 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareGithub } from '@fortawesome/free-brands-svg-icons';
 
 import Calculator from './components/Calculator';
 
 import './styles/App.scss';
 
-function App() {
+const App = () => {
   return (
     <div className='PokemonBoxCalculator'>
       <div className='PokemonBoxCalculator__Header'>
@@ -16,9 +17,9 @@ function App() {
         <Calculator />
       </div>
       <div className='PokemonBoxCalculator__Footer'>
-        Built by <a className='PokemonBoxCalculator__Footer__Link' href='https://scottnha.com'>Scott Ha.</a>
-        <div className='PokemonBoxCalculator__Footer__Icons'>
-          <a className='PokemonBoxCalculator__Footer__Link' href='https://scottnha.com'><GitHubIcon /></a>
+          <a className='PokemonBoxCalculator__Footer__Section' href='https://scottnha.com'>Built by Scott Ha.</a>
+        <div className='PokemonBoxCalculator__Footer__Section'>
+          <a className='PokemonBoxCalculator__Footer__Icon' href='https://github.com/Scott-N-Ha'><FontAwesomeIcon icon={faSquareGithub} /></a>
         </div>
       </div>
     </div>
