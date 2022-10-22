@@ -1,0 +1,11 @@
+@import './__variables.scss';
+
+.option-img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+
+  margin-right: 3px;
+
+  border-radius: 2px;
+}

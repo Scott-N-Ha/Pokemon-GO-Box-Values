@@ -24,13 +24,19 @@ const Calculator = props => {
   }, []);
 
   const renderItems = items.map(item => (
-    <Item key={item} item={item} setCounts={setCounts} />
+    <Item key={item} item={item} setCounts={setCounts} setItems={setItems} />
   ));
 
   const remainingOptions = Object.keys(ItemLib).filter(i => !items.includes(i));
 
   const total = Object.values(counts).reduce((acc, item) => acc + (ItemLib[item.name].cost * item.count), 0);
-  const costEfficiency = ((total / price) * 100).toFixed(2);
+  const costEfficiency = Number(((total / price) * 100).toFixed(2));
+  const costEfficiencyColor = costEfficiency <= 50 ? 'Red'
+    : costEfficiency <= 75 ? 'Orange'
+      : costEfficiency < 100 ? 'Yellow'
+        : costEfficiency === 100.00 ? 'Black'
+          : costEfficiency > 100 && costEfficiency < 200 ? 'Green'
+            : 'LightGreen';
 
   return (
     <div className='Calculator'>
@@ -44,10 +50,12 @@ const Calculator = props => {
         onChange={e => setTitle(e.target.value)}
       />
       <div className='Calculator__Total'>
-        Total: {total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' />
+        Calculated Box Total:
+        <span className='Calculator__Total__Calculated'>{total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' /></span>
       </div>
       <div className='Calculator__Cost'>
-        Box Price:
+        {title || 'Box'} Price:
+        <div className='Calculator__Cost__Input'>
         <input
           type="number"
           id="price-id"
@@ -56,11 +64,15 @@ const Calculator = props => {
           min={0}
           onChange={e => setPrice(e.target.value)}
         />
-        <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' />
+          <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' />
+          </div>
       </div>
       {!!total && !!price && (
         <div className='Calculator__CostEfficiency'>
-          Cost Efficiency: {costEfficiency}% <Tooltip title="Cost Efficiency = Total / Price"><InfoIcon /></Tooltip>
+          <span className='Calculator__CostEfficiency__Label'>
+            Cost Efficiency: <Tooltip title="Cost Efficiency = Total / Price"><InfoIcon /></Tooltip>
+          </span>
+          <span className={`Calculator__CostEfficiency__Number ${costEfficiencyColor}`}>{costEfficiency}%</span>
         </div>
       )}
       <div className='Calculator__Items'>

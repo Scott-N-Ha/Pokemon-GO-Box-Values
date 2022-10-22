@@ -24,9 +24,16 @@
   }
 
   .Item__Name {
+    display: flex;
+    align-items: center;
+
     font-size: 1rem;
     font-weight: bold;
     margin: 10px 0;
+
+    svg {
+      margin-left: 3px;
+    }
   }
 
   .Item__Total {
@@ -38,5 +45,9 @@
     margin: 10px 0;
 
     // color: #f5f5f5;
+  }
+
+  .Item__Delete {
+    cursor: pointer;
   }
 }

@@ -8,7 +8,7 @@
   .PokemonBoxCalculator__Header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     width: 100%;
     min-height: 50px;
@@ -17,8 +17,10 @@
 
     background-color: lightseagreen;
 
-    font: 1.5rem 'Roboto', sans-serif;
-    font-weight: bold;
+    .PokemonBoxCalculator__Header__Title {
+      font: 1.5rem 'Roboto', sans-serif;
+      font-weight: bold;
+    }
   }
 
   .PokemonBoxCalculator__Footer {
@@ -46,7 +48,7 @@
       text-decoration: none;
     }
 
-    .PokemonBoxCalculator__Footer__Icon > svg {
+    .PokemonBoxCalculator__Footer__Icon>svg {
       height: 20px;
       width: 20px;
       object-fit: contain;

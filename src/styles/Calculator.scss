@@ -17,39 +17,104 @@
   .Calculator__Box {
     height: 100px;
     width: 100px;
+    
+    margin-bottom: 10px;
+
     object-fit: contain;
+  }
+
+  #box-title {
+    font-size: 1.2rem;
+    // font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+
+    border: none;
+    border-bottom: 1px solid black;
   }
 
   .Calculator__Total {
     display: flex;
+    flex-direction: column;
     align-items: center;
 
     font-size: 1.1rem;
     font-weight: bold;
     margin: 10px 0;
 
-    // color: #f5f5f5;
+    .Calculator__Total__Calculated {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .Calculator__Cost {
     display: flex;
+    flex-direction: column;
     align-items: center;
 
     font-size: 1.1rem;
     font-weight: bold;
     margin: 10px 0;
 
-    // color: #f5f5f5;
+    .Calculator__Cost__Input {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .Calculator__CostEfficiency {
     display: flex;
+    flex-direction: column;
     align-items: center;
 
-    font-size: 1.1rem;
-    font-weight: bold;
     margin: 10px 0;
 
+    .Calculator__CostEfficiency__Label {
+      display: flex;
+      align-items: center;
+
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .Calculator__CostEfficiency__Number {
+      font-size: 2rem;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
+    }
+
+
     // color: #f5f5f5;
+    .Red {
+      color: red;
+    }
+
+    .Orange {
+      color: orange;
+    }
+
+    .Yellow {
+      color: yellow;
+    }
+
+    .Black {
+      color: black;
+      -webkit-text-stroke-width: 0;
+        // -webkit-text-stroke-color: black;
+    }
+
+    .LightGreen {
+      color: lightgreen;
+    }
+
+    .Green {
+      color: green;
+    }
+  }
+
+  .Calculator__Items {
+    width: 100%;
   }
 }
