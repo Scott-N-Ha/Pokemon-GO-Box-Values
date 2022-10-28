@@ -1,4 +1,4 @@
-$mobile: "(max-width: #{768px})";
+@import './src/styles/_variables.scss';
 
 .BoxManager {
   display: flex;

@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 
 import AddNewItem from './AddNewItem';
 import Item from './Item';
 import ItemLib from '../lib/ItemLib';
+import NewBoxImage from './NewBoxImage';
 import PokeCoin from '../images/PokeCoin.png';
 import { getRandomBox } from '../lib/BoxesLib';
 
 import '../styles/Box.scss';
 
-const Box = props => {
-  const { boxNum = 0 } = props;
-
+const Box = () => {
   const [box, setBox] = useState(getRandomBox());
+  const [boxOpen, setBoxOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [counts, setCounts] = useState({});
   const [price, setPrice] = useState(0);
   const [title, setTitle] = useState('');
-
-  useEffect(() => {
-
-  }, []);
 
   const renderItems = items.map(item => (
     <Item key={item} item={item} setCounts={setCounts} setItems={setItems} />
@@ -40,7 +36,13 @@ const Box = props => {
 
   return (
     <div className='Box'>
-      <img className='Box__Box' src={box.image} alt={box.name} />
+      <NewBoxImage
+        box={box}
+        open={boxOpen}
+        setBox={setBox}
+        setOpen={setBoxOpen}
+      />
+      <img className='Box__Box' src={box.image} alt={box.name} onClick={() => setBoxOpen(true)} />
       <input
         type='text'
         id='box-title'
