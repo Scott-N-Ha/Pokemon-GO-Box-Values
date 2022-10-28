@@ -57,12 +57,4 @@
   }
 }
 
-.App {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-
-  @media #{$mobile} {
-    flex-direction: column;
-  }
-}
+.App {}
