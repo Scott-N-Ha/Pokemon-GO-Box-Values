@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareGithub } from '@fortawesome/free-brands-svg-icons';
 
-import Calculator from './components/Calculator';
+import Calculator from './components/Box';
 
 import './styles/App.scss';
 
