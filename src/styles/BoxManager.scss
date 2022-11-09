@@ -1,0 +1,24 @@
+@import './src/styles/_variables.scss';
+
+.BoxManager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .BoxManager__Boxes {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+
+    @media #{$mobile} {
+      flex-direction: column;
+    }
+  }
+
+  .BoxManager__AddNewBox {
+    margin: 25px 0;
+  }
+}

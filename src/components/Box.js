@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 
 import AddNewItem from './AddNewItem';
 import Item from './Item';
 import ItemLib from '../lib/ItemLib';
+import NewBoxImage from './NewBoxImage';
 import PokeCoin from '../images/PokeCoin.png';
 import { getRandomBox } from '../lib/BoxesLib';
 
-import '../styles/Calculator.scss';
+import '../styles/Box.scss';
 
-const Calculator = props => {
-  const { boxNum = 0 } = props;
-
+const Box = () => {
   const [box, setBox] = useState(getRandomBox());
+  const [boxOpen, setBoxOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [counts, setCounts] = useState({});
   const [price, setPrice] = useState(0);
   const [title, setTitle] = useState('');
-
-  useEffect(() => {
-
-  }, []);
 
   const renderItems = items.map(item => (
     <Item key={item} item={item} setCounts={setCounts} setItems={setItems} />
@@ -39,8 +35,14 @@ const Calculator = props => {
             : 'LightGreen';
 
   return (
-    <div className='Calculator'>
-      <img className='Calculator__Box' src={box.image} alt={box.name} />
+    <div className='Box'>
+      <NewBoxImage
+        box={box}
+        open={boxOpen}
+        setBox={setBox}
+        setOpen={setBoxOpen}
+      />
+      <img className='Box__Box' src={box.image} alt={box.name} onClick={() => setBoxOpen(true)} />
       <input
         type='text'
         id='box-title'
@@ -49,13 +51,13 @@ const Calculator = props => {
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
-      <div className='Calculator__Total'>
+      <div className='Box__Total'>
         Calculated Box Total:
-        <span className='Calculator__Total__Calculated'>{total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' /></span>
+        <span className='Box__Total__Calculated'>{total} <img className='PokeCoin' src={PokeCoin} alt='Poke Coin' /></span>
       </div>
-      <div className='Calculator__Cost'>
+      <div className='Box__Cost'>
         {title || 'Box'} Price:
-        <div className='Calculator__Cost__Input'>
+        <div className='Box__Cost__Input'>
         <input
           type="number"
           id="price-id"
@@ -68,14 +70,14 @@ const Calculator = props => {
           </div>
       </div>
       {!!total && !!price && (
-        <div className='Calculator__CostEfficiency'>
-          <span className='Calculator__CostEfficiency__Label'>
+        <div className='Box__CostEfficiency'>
+          <span className='Box__CostEfficiency__Label'>
             Cost Efficiency: <Tooltip title="Cost Efficiency = Total / Price"><InfoIcon /></Tooltip>
           </span>
-          <span className={`Calculator__CostEfficiency__Number ${costEfficiencyColor}`}>{costEfficiency}%</span>
+          <span className={`Box__CostEfficiency__Number ${costEfficiencyColor}`}>{costEfficiency}%</span>
         </div>
       )}
-      <div className='Calculator__Items'>
+      <div className='Box__Items'>
         {renderItems}
       </div>
       <AddNewItem options={remainingOptions} setItems={setItems} />
@@ -83,4 +85,4 @@ const Calculator = props => {
   )
 };
 
-export default Calculator;
+export default Box;

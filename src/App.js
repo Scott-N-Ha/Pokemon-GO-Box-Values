@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareGithub } from '@fortawesome/free-brands-svg-icons';
 
-import Calculator from './components/Calculator';
+import BoxManager from './components/BoxManager';
 
 import './styles/App.scss';
 
@@ -18,9 +18,7 @@ const App = () => {
         </div>
       </div>
       <div className="App">
-        <Calculator />
-        <Calculator />
-        <Calculator />
+        <BoxManager />
       </div>
       <div className='PokemonBoxCalculator__Footer'>
         <a className='PokemonBoxCalculator__Footer__Section' href='https://scottnha.com'>Built by Scott Ha.</a>
