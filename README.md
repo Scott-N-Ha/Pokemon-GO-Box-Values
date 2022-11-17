@@ -1,4 +1,4 @@
-# Pokemon GO Box Values
+  # [Pokemon GO Box Values](https://scottnha.com/Pokemon-GO-Box-Values/)
 
 I created this tool to help visualize the values of Pokemon GO boxes. I'm not sure if this is the best way to do it, but it works for me.
 
