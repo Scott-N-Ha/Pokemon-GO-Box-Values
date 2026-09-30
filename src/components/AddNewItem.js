@@ -31,18 +31,29 @@ const AddNewItem = props => {
   ];
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id="demo-simple-select-helper-label">Item</InputLabel>
+    <FormControl sx={{ m: 1, minWidth: 220 }}>
+      <InputLabel id="item-select-label">Item</InputLabel>
       <Select
-        labelId="demo-simple-select-helper-label"
-        id="demo-simple-select-helper"
+        labelId="item-select-label"
+        id="item-select-helper"
         value=''
-        label="Age"
+        label="Item"
         onChange={handleChange}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              borderRadius: 3,
+              mt: 1,
+              backgroundColor: '#101a2d',
+              color: '#edf4ff',
+              border: '1px solid rgba(148, 163, 184, 0.22)',
+            },
+          },
+        }}
       >
         {renderOptions}
       </Select>
-      <FormHelperText>Add an Item to the Box</FormHelperText>
+      <FormHelperText>Add an item to the box</FormHelperText>
     </FormControl>
   );
 };

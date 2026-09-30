@@ -13,22 +13,9 @@ import RemoteRaidPass from '../images/RemoteRaidPass.png';
 import SpecialLureModule from '../images/SpecialLureModule.png';
 import StarPiece from '../images/StarPiece.png';
 import SuperIncubator from '../images/SuperIncubator.png';
+import { DEFAULT_ITEM_COSTS, resolveItemCost } from './livePricing';
 
-const item_costs = {
-  egg_incubator: 150,
-  incense: 31.25,
-  lucky_egg: 62.5,
-  lure_module: 85,
-  max_potion: 20,
-  max_revive: 30,
-  poffin: 100,
-  poke_ball: 4,
-  premium_battle_pass: 100,
-  remote_raid_pass: 100,
-  special_lure_module: 180,
-  star_piece: 80,
-  super_incubator: 200,
-};
+const item_costs = { ...DEFAULT_ITEM_COSTS };
 
 const ItemLib = {
   egg_incubator: {
@@ -117,6 +104,23 @@ const ItemLib = {
     imageComponent: <img src={SuperIncubator} alt='Super Incubator' />,
     cost: item_costs.super_incubator,
   },
+};
+
+export const applyLivePricing = (livePricing = {}) => {
+  const nextCosts = { ...DEFAULT_ITEM_COSTS, ...livePricing };
+
+  Object.entries(ItemLib).forEach(([key, item]) => {
+    const nextCost = resolveItemCost(key, nextCosts);
+    if (nextCost > 0) {
+      item.cost = nextCost;
+    }
+  });
+
+  return ItemLib;
+};
+
+export const getItemCost = (itemKey, livePricing = {}) => {
+  return resolveItemCost(itemKey, { ...DEFAULT_ITEM_COSTS, ...livePricing });
 };
 
 export default ItemLib;

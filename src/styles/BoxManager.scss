@@ -6,19 +6,59 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  gap: 22px;
+
+  .BoxManager__Summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: min(600px, 100%);
+
+    .BoxManager__SummaryCard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.7);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 32px rgba(15, 23, 42, 0.24);
+      }
+
+      .BoxManager__SummaryCardLabel {
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #94a3b8;
+      }
+
+      strong {
+        margin-top: 8px;
+        font-size: 1.3rem;
+        color: #f8fbff;
+      }
+    }
+  }
 
   .BoxManager__Boxes {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
     width: 100%;
+    align-items: stretch;
 
     @media #{$mobile} {
-      flex-direction: column;
+      grid-template-columns: 1fr;
     }
   }
 
   .BoxManager__AddNewBox {
-    margin: 25px 0;
+    margin: 8px 0 20px;
   }
 }
