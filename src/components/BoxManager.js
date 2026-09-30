@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@mui/material/Button';
@@ -7,16 +7,45 @@ import Box from './Box';
 
 import '../styles/BoxManager.scss';
 
-const BoxManager = ({ pricingState = 'Fallback pricing' }) => {
+const createManualBox = () => ({
+  id: `manual-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+  source: 'manual',
+});
+
+const BoxManager = ({ pricingState = 'Fallback pricing', pricingVersion = 0, apiBoxes = [], apiBoxesVersion = 0 }) => {
   const [boxes, setBoxes] = useState([]);
 
+  useEffect(() => {
+    if (apiBoxesVersion <= 0) {
+      return;
+    }
+
+    if (Array.isArray(apiBoxes) && apiBoxes.length > 0) {
+      setBoxes(apiBoxes.map((box, index) => ({
+        id: box.id ?? `api-${index}-${Date.now()}`,
+        source: 'api',
+        initialData: box,
+      })));
+      return;
+    }
+
+    if (boxes.length === 0) {
+      setBoxes([createManualBox()]);
+    }
+  }, [apiBoxes, apiBoxesVersion, boxes.length]);
+
   const handleAddBox = () => {
-    const newDate = new Date();
-    setBoxes(prevBoxes => [
-      ...prevBoxes,
-      <Box key={newDate.getTime()} />
-    ]);
+    setBoxes((prevBoxes) => [...prevBoxes, createManualBox()]);
   };
+
+  const renderedBoxes = boxes.map((boxDescriptor, index) => (
+    <Box
+      key={boxDescriptor.id}
+      version={pricingVersion}
+      initialData={boxDescriptor.source === 'api' ? boxDescriptor.initialData : null}
+      fallbackTitle={boxDescriptor.source === 'api' ? `Live Box ${index + 1}` : ''}
+    />
+  ));
 
   const AddNewBox = () => (
     <div className='BoxManager__AddNewBox'>
@@ -57,7 +86,7 @@ const BoxManager = ({ pricingState = 'Fallback pricing' }) => {
         </div>
       </div>
       <div className='BoxManager__Boxes'>
-        {boxes}
+        {renderedBoxes}
       </div>
       <AddNewBox />
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -9,19 +9,27 @@ import PokeCoin from '../images/PokeCoin.png';
 import '../styles/Item.scss';
 
 const Item = props => {
-  const { item, setCounts, setItems } = props;
+  const { item, initialCount = 0, setCounts, setItems } = props;
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(Number(initialCount) || 0);
+
+  useEffect(() => {
+    const normalizedCount = Number(initialCount) || 0;
+    setCount(normalizedCount);
+    setCounts(prevCounts => ({ ...prevCounts, [item]: { name: item, count: normalizedCount } }));
+  }, [initialCount, item, setCounts]);
 
   const handleChange = e => {
-    setCount(e.target.value);
-    setCounts(prevCounts => ({ ...prevCounts, [item]: { name: item, count: e.target.value } }));
+    const nextValue = Number(e.target.value) || 0;
+    setCount(nextValue);
+    setCounts(prevCounts => ({ ...prevCounts, [item]: { name: item, count: nextValue } }));
   };
 
   const handleDeleteItem = () => {
     setCounts(prevCounts => {
-      delete prevCounts[item];
-      return prevCounts;
+      const nextCounts = { ...prevCounts };
+      delete nextCounts[item];
+      return nextCounts;
     });
     setItems(prevItems => prevItems.filter(i => i !== item));
   };
@@ -46,6 +54,7 @@ const Item = props => {
           name={`${item}-count`}
           max={9999}
           min={0}
+          value={count}
           onChange={handleChange}
         />
       </div>

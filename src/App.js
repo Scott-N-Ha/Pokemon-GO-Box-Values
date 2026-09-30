@@ -1,40 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import BoxManager from './components/BoxManager';
 import { applyLivePricing } from './lib/ItemLib';
-import { fetchLiveItemCosts } from './lib/livePricing';
+import { fetchLiveBoxes, fetchLiveItemCosts } from './lib/livePricing';
 
 import './styles/App.scss';
 
 const App = () => {
-  const [pricingState, setPricingState] = useState('Loading live pricing…');
+  const [pricingState, setPricingState] = useState('Fallback pricing');
+  const [pricingVersion, setPricingVersion] = useState(0);
+  const [refreshModal, setRefreshModal] = useState({ open: false, progress: 0, step: 'Fetching live pricing' });
+  const [liveBoxes, setLiveBoxes] = useState([]);
+  const [liveBoxesVersion, setLiveBoxesVersion] = useState(0);
 
-  useEffect(() => {
-    let isMounted = true;
+  const refreshLivePricing = useCallback(async () => {
+    setRefreshModal({ open: true, progress: 18, step: 'Fetching live pricing' });
+    setPricingState('Fetching live pricing…');
 
-    fetchLiveItemCosts()
-      .then((prices) => {
-        if (!isMounted) {
-          return;
-        }
+    try {
+      const [prices, boxes] = await Promise.all([
+        fetchLiveItemCosts(),
+        fetchLiveBoxes(),
+      ]);
 
-        applyLivePricing(prices);
-        setPricingState('Live GO pricing');
-      })
-      .catch(() => {
-        if (!isMounted) {
-          return;
-        }
+      setRefreshModal({ open: true, progress: 45, step: 'Updating current boxes' });
+      setPricingState('Updating current boxes…');
 
-        setPricingState('Fallback pricing');
-      });
+      applyLivePricing(prices);
+      setPricingVersion((version) => version + 1);
 
-    return () => {
-      isMounted = false;
-    };
+      await new Promise((resolve) => window.setTimeout(resolve, 350));
+
+      setRefreshModal({ open: true, progress: 78, step: 'Populating missing boxes' });
+      setPricingState('Populating missing boxes…');
+      setLiveBoxes(boxes);
+      setLiveBoxesVersion((value) => value + 1);
+
+      await new Promise((resolve) => window.setTimeout(resolve, 350));
+
+      setRefreshModal({ open: true, progress: 100, step: 'Complete' });
+      setPricingState('Live GO pricing');
+
+      window.setTimeout(() => {
+        setRefreshModal((current) => ({ ...current, open: false }));
+      }, 700);
+    } catch (error) {
+      console.warn('Unable to refresh live pricing:', error);
+      setRefreshModal({ open: true, progress: 100, step: 'Refresh failed' });
+      setPricingState('Fallback pricing');
+
+      window.setTimeout(() => {
+        setRefreshModal((current) => ({ ...current, open: false }));
+      }, 900);
+    }
   }, []);
+
+  const isProcessing = refreshModal.open || pricingState === 'Fetching live pricing…' || pricingState === 'Updating current boxes…' || pricingState === 'Populating missing boxes…';
 
   return (
     <div className="PokemonBoxCalculator">
@@ -47,14 +70,43 @@ const App = () => {
           <h1 className="PokemonBoxCalculator__Header__Title">Box Value Calculator</h1>
         </div>
         <div className="PokemonBoxCalculator__Header__Right">
+          <button
+            type="button"
+            className="PokemonBoxCalculator__RefreshButton"
+            onClick={refreshLivePricing}
+            disabled={isProcessing}
+          >
+            {isProcessing ? 'Updating…' : 'Refresh GO pricing'}
+          </button>
           <span className={`PokemonBoxCalculator__Header__Status ${pricingState === 'Live GO pricing' ? 'is-live' : 'is-fallback'}`}>
             {pricingState}
           </span>
         </div>
       </header>
 
+      {refreshModal.open && (
+        <div className="PokemonBoxCalculator__RefreshModal" role="dialog" aria-modal="true" aria-live="polite">
+          <div className="PokemonBoxCalculator__RefreshModalCard">
+            <p className="PokemonBoxCalculator__RefreshModal__Eyebrow">Updating Pokémon GO pricing</p>
+            <h2>Refreshing live data</h2>
+            <div className="PokemonBoxCalculator__RefreshModal__ProgressTrack" aria-hidden="true">
+              <span className="PokemonBoxCalculator__RefreshModal__ProgressFill" style={{ width: `${refreshModal.progress}%` }} />
+            </div>
+            <div className="PokemonBoxCalculator__RefreshModal__Meta">
+              <strong>{refreshModal.step}</strong>
+              <span>{refreshModal.progress}%</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="App">
-        <BoxManager pricingState={pricingState} />
+        <BoxManager
+          pricingState={pricingState}
+          pricingVersion={pricingVersion}
+          apiBoxes={liveBoxes}
+          apiBoxesVersion={liveBoxesVersion}
+        />
       </main>
 
       <footer className="PokemonBoxCalculator__Footer">
